@@ -39,6 +39,8 @@ services:
       MONGO_URI: mongodb://mongodb:27017/final-project-db
     ports:
       - "3000:3000"
+    volumes:
+    - ./server:/app
 
   # Frontend (Angular)
   frontend:
@@ -50,6 +52,8 @@ services:
       - app_network
     ports:
       - "4200:4200"
+    volumes:
+    - ./client/final-project:/app
     command: npm start
 
 networks:
