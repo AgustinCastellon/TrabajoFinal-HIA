@@ -40,7 +40,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-    - ./server:/app
+      - ./server:/app
 
   # Frontend (Angular)
   frontend:
@@ -53,7 +53,7 @@ services:
     ports:
       - "4200:4200"
     volumes:
-    - ./client/final-project:/app
+      - ./client/final-project:/app
     command: npm start
 
 networks:
