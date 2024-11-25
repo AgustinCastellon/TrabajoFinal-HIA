@@ -54,6 +54,7 @@ services:
       - "4200:4200"
     volumes:
       - ./client/final-project:/app
+      - /app/node_modules
     command: npm start
 
 networks:
