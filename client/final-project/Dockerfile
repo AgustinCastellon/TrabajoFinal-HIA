@@ -7,7 +7,8 @@ WORKDIR /app
 # Copia los archivos de configuración del proyecto Angular
 COPY package*.json ./
 
-# Instala las dependencias
+# Instala Angular CLI globalmente y las dependencias del proyecto
+RUN npm install -g @angular/cli
 RUN npm install
 
 # Copia el código fuente
