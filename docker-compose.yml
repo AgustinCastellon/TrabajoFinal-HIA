@@ -52,9 +52,30 @@ services:
       - "4200:4200"
     command: npm start
 
+  # Backup Service
+  mongo-backup:
+    image: mongo:6
+    container_name: mongo_backup
+    depends_on:
+      - mongodb
+    networks:
+      - app_network
+    volumes:
+      - ./backups:/backups
+    environment:
+      MONGO_INITDB_DATABASE: final-project-db
+    entrypoint: |
+      bash -c "
+      while true; do
+        mongodump --host=mongodb --out=/backups/backup-\$(date +%Y%m%d-%H%M%S) &&
+        sleep 86400;  # Ejecutar cada 24 horas (86400 segundos)
+      done
+      "  
+
 networks:
    app_network:
      driver: bridge
 
 volumes:
   mongodb_data:
+  backups:
