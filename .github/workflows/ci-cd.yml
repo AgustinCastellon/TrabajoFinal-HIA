@@ -52,7 +52,11 @@ jobs:
 
     # Ejecuta la aplicación localmente
     - name: Deploy locally
-      run: |
-        docker-compose down
-        docker-compose pull
-        docker-compose up -d --build
+    run: |
+      ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+      cd /ruta/a/tu/proyecto
+      docker-compose down
+      docker-compose pull
+      docker-compose up -d --build
+      EOF
+
