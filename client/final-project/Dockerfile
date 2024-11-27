@@ -1,22 +1,28 @@
-# Usa una imagen de Node.js
-FROM node:18
-
-# Establece el directorio de trabajo
+# Usa la imagen oficial de Node.js como base para compilar
+FROM node:18 AS builder
 WORKDIR /app
 
-# Copia los archivos de configuración del proyecto Angular
+# Copia los archivos de la aplicación e instala dependencias
 COPY package*.json ./
+<<<<<<< HEAD
 
 # Instala Angular CLI globalmente y las dependencias del proyecto
 RUN npm install -g @angular/cli
+=======
+>>>>>>> main
 RUN npm install
-
-# Copia el código fuente
 COPY . .
 
-# Exponer el puerto en el que el servidor de Angular funciona (4200 por defecto)
-EXPOSE 4200
+# Construye la aplicación Angular para producción
+RUN npm run build --prod
 
-# Comando para iniciar el servidor
-CMD ["npm", "start"]
+# Usa una imagen ligera de Nginx para servir los archivos
+FROM nginx:alpine
+COPY --from=builder /app/dist/final-project /usr/share/nginx/html
+
+# Expon el puerto que usa Nginx
+EXPOSE 80
+
+# Comando para iniciar Nginx
+CMD ["nginx", "-g", "daemon off;"]
 
