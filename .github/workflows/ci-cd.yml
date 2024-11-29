@@ -40,7 +40,7 @@ jobs:
 
     - name: Build and push frontend image
       run: |
-        docker build -t agustinmc/frontend:latest ./client/final-project
+        docker build -t agustinmc/frontend:latest /app/dist/final-project/browser 
         docker push agustinmc/frontend:latest
 
    # Instalar Docker Compose
